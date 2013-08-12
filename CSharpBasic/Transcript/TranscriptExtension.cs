@@ -18,15 +18,25 @@ namespace CSharpBasic.Transcript
             {
                 var propertyValue = propertyInfo.GetValue(t, null);
                 var propertyName = propertyInfo.Name;
-                if(null != propertyValue)
+                if(null != propertyValue && ExistsDisplayAttribute(propertyInfo))
                 {
-                    if(!"TotalScore".Equals(propertyName))
-                    {
-                        properties.Add(string.Format("{0}: {1}", propertyName, propertyValue));
-                    }
+                      properties.Add(string.Format("{0}: {1}", propertyName, propertyValue));
                 }
             }
             return string.Join(", ", properties);
+        }
+
+        private static bool ExistsDisplayAttribute(PropertyInfo propertyInfo)
+        {
+            var customAttributes = propertyInfo.GetCustomAttributes(false);
+            foreach (var customAttribute in customAttributes)
+            {
+                if(customAttribute is DisplayAttribute)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

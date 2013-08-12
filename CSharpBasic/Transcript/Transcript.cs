@@ -4,10 +4,14 @@ namespace CSharpBasic.Transcript
 {
     public class Transcript
     {
+        [Display]
         public string Name { get; set; }
         public int Age { get; set; }
+        [Display]
         public int? Chinese { get; set; }
+        [Display]
         public int? English { get; set; }
+        [Display]
         public int? Math { get; set; }
 
         public int TotalScore
