@@ -23,11 +23,17 @@ namespace CSharpBasic.Transcript
     public class ExamResult
     {
         public string Course { get; private set; }
-        public List<Grade> Results { get; set; } 
+        public List<Grade> Results { get; private set; } 
 
         public ExamResult(string course)
         {
             Course = course;
+            Results = new List<Grade>();
+        }
+
+        public void Add(Grade grade)
+        {
+            Results.Add(grade);
         }
     }
 
@@ -38,6 +44,30 @@ namespace CSharpBasic.Transcript
         {
             var grade = new Grade("Kite", 80);
             Assert.AreEqual("Name: Kite, Score: 80", grade.Print());
+        }
+
+        [Test]
+        public void should_get_grade_after_added()
+        {
+            var kiteGrade = new Grade("Kite", 80);
+            var results = new ExamResult("Math");
+            results.Add(kiteGrade);
+            Assert.AreEqual(1, results.Results.Count);
+            Assert.AreEqual("Kite", results.Results[0].Name);
+            Assert.AreEqual(80, results.Results[0].Score);
+        }
+
+        [Test]
+        public void should_not_add_duplicate_grade_which_has_same_name_with_another()
+        {
+            var kiteGrade = new Grade("Kite", 80);
+            var dupKiteGrade = new Grade("Kite", 90);
+            var results = new ExamResult("Math");
+            results.Add(kiteGrade);
+            results.Add(dupKiteGrade);
+//            Assert.AreEqual(1, results.Results.Count);
+//            Assert.AreEqual("Kite", results.Results[0].Name);
+//            Assert.AreEqual(80, results.Results[0].Score);
         }
     }
 }
