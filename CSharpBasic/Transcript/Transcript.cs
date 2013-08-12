@@ -15,14 +15,6 @@ namespace CSharpBasic.Transcript
         }
     }
 
-    public static class TranscriptExtension
-    {
-        public static string Print(this Transcript transcript)
-        {
-            return string.Format("Name: {0}, Chinese: {1}, English: {2}", transcript.Name, transcript.Chinese, transcript.English);
-        }
-    }
-
     public class TranscriptTest
     {
         [Test]
