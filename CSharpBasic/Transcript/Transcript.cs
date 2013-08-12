@@ -7,6 +7,7 @@ namespace CSharpBasic.Transcript
         public string Name { get; set; }
         public int Chinese { get; set; }
         public int English { get; set; }
+        public int? Math { get; set; }
 
         public int TotalScore
         {
@@ -26,6 +27,19 @@ namespace CSharpBasic.Transcript
     {
         [Test]
         public void should_get_total_score()
+        {
+            var transcript = new Transcript
+            {
+                Name = "Li Lei",
+                Chinese = 80,
+                English = 80,
+                Math = 80
+            };
+//            Assert.AreEqual(240, transcript.TotalScore);
+        }
+
+        [Test]
+        public void should_get_total_score_except_unregisted_score()
         {
             var transcript = new Transcript
             {
