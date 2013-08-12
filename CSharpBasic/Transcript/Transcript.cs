@@ -39,7 +39,7 @@ namespace CSharpBasic.Transcript
         }
 
         [Test]
-        public void should_get_total_score_except_unregisted_score()
+        public void should_get_total_score_except_unregisted_courses()
         {
             var transcript = new Transcript
             {
@@ -51,7 +51,7 @@ namespace CSharpBasic.Transcript
         }
 
         [Test]
-        public void should_print_all_the_score_of_courses()
+        public void should_print_all_the_score_of_courses_except_unregisted_courses()
         {
             var transcript = new Transcript
             {
@@ -60,6 +60,19 @@ namespace CSharpBasic.Transcript
                 English = 81
             };
             Assert.AreEqual("Name: Li Lei, Chinese: 80, English: 81", transcript.Print());
+        }
+
+        [Test]
+        public void should_print_all_the_score_of_courses()
+        {
+            var transcript = new Transcript
+            {
+                Name = "Li Lei",
+                Chinese = 80,
+                English = 81,
+                Math = 82
+            };
+            Assert.AreEqual("Name: Li Lei, Chinese: 80, English: 81, Math: 82", transcript.Print());
         }
     }
 }
