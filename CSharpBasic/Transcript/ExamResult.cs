@@ -18,6 +18,15 @@ namespace CSharpBasic.Transcript
             Name = name;
             Score = score;
         }
+
+        public override bool Equals(object obj)
+        {
+            if(obj is Grade)
+            {
+                return Name.Equals((obj as Grade).Name);
+            }
+            return base.Equals(obj);
+        }
     }
 
     public class ExamResult
@@ -33,6 +42,7 @@ namespace CSharpBasic.Transcript
 
         public void Add(Grade grade)
         {
+            if(Results.Contains(grade)) return;
             Results.Add(grade);
         }
     }
@@ -65,9 +75,9 @@ namespace CSharpBasic.Transcript
             var results = new ExamResult("Math");
             results.Add(kiteGrade);
             results.Add(dupKiteGrade);
-//            Assert.AreEqual(1, results.Results.Count);
-//            Assert.AreEqual("Kite", results.Results[0].Name);
-//            Assert.AreEqual(80, results.Results[0].Score);
+            Assert.AreEqual(1, results.Results.Count);
+            Assert.AreEqual("Kite", results.Results[0].Name);
+            Assert.AreEqual(80, results.Results[0].Score);
         }
     }
 }
