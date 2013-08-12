@@ -5,13 +5,13 @@ namespace CSharpBasic.Transcript
     public class Transcript
     {
         public string Name { get; set; }
-        public int Chinese { get; set; }
-        public int English { get; set; }
+        public int? Chinese { get; set; }
+        public int? English { get; set; }
         public int? Math { get; set; }
 
         public int TotalScore
         {
-            get { return Chinese + English; }
+            get { return Chinese.GetValueOrDefault(0) + English.GetValueOrDefault(0) + Math.GetValueOrDefault(0); }
         }
     }
 
@@ -35,7 +35,7 @@ namespace CSharpBasic.Transcript
                 English = 80,
                 Math = 80
             };
-//            Assert.AreEqual(240, transcript.TotalScore);
+            Assert.AreEqual(240, transcript.TotalScore);
         }
 
         [Test]
