@@ -7,12 +7,17 @@ namespace CSharpBasic.Transcript
     {
         public static string Print(this Transcript transcript)
         {
-            return PrintTranscript(transcript);
+            return PrintObject(transcript);
+        }
+        
+        public static string Print(this Grade grade)
+        {
+            return PrintObject(grade);
         }
 
-        private static string PrintTranscript(Transcript t)
+        private static string PrintObject<T>(T t)
         {
-            var type = typeof (Transcript);
+            var type = typeof (T);
             var properties = new List<string>();
             foreach (var propertyInfo in type.GetProperties())
             {

@@ -8,7 +8,9 @@ namespace CSharpBasic.Transcript
 {
     public class Grade
     {
+        [Display]
         public string Name { get; private set; }
+        [Display]
         public int Score { get; private set; }
 
         public Grade(string name, int score)
@@ -35,7 +37,7 @@ namespace CSharpBasic.Transcript
         public void should_print_grade()
         {
             var grade = new Grade("Kite", 80);
-//            Assert.AreEqual("Name: Kite, Score: 80", grade.Print());
+            Assert.AreEqual("Name: Kite, Score: 80", grade.Print());
         }
     }
 }
