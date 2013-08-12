@@ -7,6 +7,11 @@ namespace CSharpBasic.Transcript
         public string Name { get; set; }
         public int Chinese { get; set; }
         public int English { get; set; }
+
+        public int TotalScore
+        {
+            get { return Chinese + English; }
+        }
     }
 
     public class TranscriptTest
@@ -20,7 +25,7 @@ namespace CSharpBasic.Transcript
                 Chinese = 80,
                 English = 80
             };
-//            Assert.AreEqual(160, transcript.TotalScore);
+            Assert.AreEqual(160, transcript.TotalScore);
         }
     }
 }
