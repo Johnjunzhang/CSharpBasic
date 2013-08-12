@@ -27,5 +27,17 @@ namespace CSharpBasic.Transcript
             };
             Assert.AreEqual(160, transcript.TotalScore);
         }
+
+        [Test]
+        public void should_print_all_the_score_of_courses()
+        {
+            var transcript = new Transcript
+            {
+                Name = "Li Lei",
+                Chinese = 80,
+                English = 80
+            };
+//            Assert.AreEqual("Name: Li Lei, Chinese: 80, English: 80", transcript.Print());
+        }
     }
 }
