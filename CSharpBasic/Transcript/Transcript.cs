@@ -5,6 +5,7 @@ namespace CSharpBasic.Transcript
     public class Transcript
     {
         public string Name { get; set; }
+        public int Age { get; set; }
         public int? Chinese { get; set; }
         public int? English { get; set; }
         public int? Math { get; set; }
