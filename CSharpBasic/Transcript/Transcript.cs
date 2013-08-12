@@ -14,6 +14,14 @@ namespace CSharpBasic.Transcript
         }
     }
 
+    public static class TranscriptExtension
+    {
+        public static string Print(this Transcript transcript)
+        {
+            return string.Format("Name: {0}, Chinese: {1}, English: {2}", transcript.Name, transcript.Chinese, transcript.English);
+        }
+    }
+
     public class TranscriptTest
     {
         [Test]
@@ -35,9 +43,9 @@ namespace CSharpBasic.Transcript
             {
                 Name = "Li Lei",
                 Chinese = 80,
-                English = 80
+                English = 81
             };
-//            Assert.AreEqual("Name: Li Lei, Chinese: 80, English: 80", transcript.Print());
+            Assert.AreEqual("Name: Li Lei, Chinese: 80, English: 81", transcript.Print());
         }
     }
 }
