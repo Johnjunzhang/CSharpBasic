@@ -92,7 +92,7 @@ namespace CSharpBasic.Transcript
         }
 
         [Test]
-        public void should_convert_exam_result_to_a_list_of_transcripts()
+        public void should_convert_math_exam_result_to_a_list_of_transcripts()
         {
             var result = new ExamResult("Math");
             result.Add(new Grade("Li Lei", 80));
@@ -102,6 +102,20 @@ namespace CSharpBasic.Transcript
             Assert.AreEqual(80, transcripts[0].Math);
             Assert.AreEqual("Li Lei", transcripts[0].Name);
             Assert.AreEqual(90, transcripts[1].Math);
+            Assert.AreEqual("Han Meimei", transcripts[1].Name);
+        }
+
+        [Test]
+        public void should_convert_english_exam_result_to_a_list_of_transcripts()
+        {
+            var result = new ExamResult("English");
+            result.Add(new Grade("Li Lei", 80));
+            result.Add(new Grade("Han Meimei", 90));
+
+            var transcripts = result.ToTranscripts();
+            Assert.AreEqual(80, transcripts[0].English);
+            Assert.AreEqual("Li Lei", transcripts[0].Name);
+            Assert.AreEqual(90, transcripts[1].English);
             Assert.AreEqual("Han Meimei", transcripts[1].Name);
         }
     }
