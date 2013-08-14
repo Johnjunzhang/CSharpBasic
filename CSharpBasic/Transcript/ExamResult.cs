@@ -49,11 +49,9 @@ namespace CSharpBasic.Transcript
 
     public static class ExamResultExtension
     {
-        public delegate Transcript Convert(Grade grade);
-
-        public static List<Transcript> ToTranscripts(this ExamResult result, Convert convert)
+        public static List<Transcript> ToTranscripts(this ExamResult result, Func<Grade, Transcript> convert)
         {
-            return result.Results.Select(grade => convert(grade)).ToList();
+            return result.Results.Select(convert).ToList();
         }
     }
 
@@ -97,16 +95,11 @@ namespace CSharpBasic.Transcript
             result.Add(new Grade("Li Lei", 80));
             result.Add(new Grade("Han Meimei", 90));
 
-            var transcripts = result.ToTranscripts(MathConvert);
+            var transcripts = result.ToTranscripts(grade => new Transcript{Name = grade.Name, Math = grade.Score});
             Assert.AreEqual(80, transcripts[0].Math);
             Assert.AreEqual("Li Lei", transcripts[0].Name);
             Assert.AreEqual(90, transcripts[1].Math);
             Assert.AreEqual("Han Meimei", transcripts[1].Name);
-        }
-
-        public static Transcript MathConvert(Grade grade)
-        {
-            return new Transcript{Name = grade.Name, Math = grade.Score};
         }
 
         [Test]
@@ -116,16 +109,11 @@ namespace CSharpBasic.Transcript
             result.Add(new Grade("Li Lei", 80));
             result.Add(new Grade("Han Meimei", 90));
 
-            var transcripts = result.ToTranscripts(EnglishConvert);
+            var transcripts = result.ToTranscripts(grade => new Transcript { Name = grade.Name, English = grade.Score });
             Assert.AreEqual(80, transcripts[0].English);
             Assert.AreEqual("Li Lei", transcripts[0].Name);
             Assert.AreEqual(90, transcripts[1].English);
             Assert.AreEqual("Han Meimei", transcripts[1].Name);
-        }
-
-        public static Transcript EnglishConvert(Grade grade)
-        {
-            return new Transcript { Name = grade.Name, English = grade.Score };
         }
     }
 }
