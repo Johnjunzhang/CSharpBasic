@@ -47,6 +47,17 @@ namespace CSharpBasic.Transcript
         }
     }
 
+    public static class ExamResultExtension
+    {
+        public static List<Transcript> ToTranscripts(this ExamResult result)
+        {
+            return result.Results.Select(grade => new Transcript
+                                                      {
+                                                          Name = grade.Name, Math = grade.Score
+                                                      }).ToList();
+        }
+    }
+
     public class ExamResultTest
     {
         [Test]
@@ -78,6 +89,20 @@ namespace CSharpBasic.Transcript
             Assert.AreEqual(1, results.Results.Count);
             Assert.AreEqual("Kite", results.Results[0].Name);
             Assert.AreEqual(80, results.Results[0].Score);
+        }
+
+        [Test]
+        public void should_convert_exam_result_to_a_list_of_transcripts()
+        {
+            var result = new ExamResult("Math");
+            result.Add(new Grade("Li Lei", 80));
+            result.Add(new Grade("Han Meimei", 90));
+
+            var transcripts = result.ToTranscripts();
+            Assert.AreEqual(80, transcripts[0].Math);
+            Assert.AreEqual("Li Lei", transcripts[0].Name);
+            Assert.AreEqual(90, transcripts[1].Math);
+            Assert.AreEqual("Han Meimei", transcripts[1].Name);
         }
     }
 }
