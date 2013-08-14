@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace CSharpBasic.Transcript
@@ -17,31 +19,17 @@ namespace CSharpBasic.Transcript
 
         private static string PrintObject<T>(T t)
         {
-            var type = typeof (T);
-            var properties = new List<string>();
-            foreach (var propertyInfo in type.GetProperties())
-            {
-                var propertyValue = propertyInfo.GetValue(t, null);
-                var propertyName = propertyInfo.Name;
-                if(null != propertyValue && ExistsDisplayAttribute(propertyInfo))
-                {
-                      properties.Add(string.Format("{0}: {1}", propertyName, propertyValue));
-                }
-            }
+            var properties = typeof (T).GetProperties().
+                Where(property => null != property.GetValue(t, null) && ExistsDisplayAttribute(property)).
+                Select(property => string.Format("{0}: {1}", property.Name, property.GetValue(t, null))).
+                ToList();
             return string.Join(", ", properties);
         }
 
         private static bool ExistsDisplayAttribute(PropertyInfo propertyInfo)
         {
             var customAttributes = propertyInfo.GetCustomAttributes(false);
-            foreach (var customAttribute in customAttributes)
-            {
-                if(customAttribute is DisplayAttribute)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return customAttributes.OfType<DisplayAttribute>().Any();
         }
     }
 }
