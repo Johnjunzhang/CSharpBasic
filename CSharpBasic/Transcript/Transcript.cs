@@ -71,5 +71,25 @@ namespace CSharpBasic.Transcript
             };
             Assert.AreEqual("Name: Li Lei, Chinese: 80, English: 81, Math: 82", transcript.Print());
         }
+
+        [Test]
+        public void should_merge_valid_score_to_transcript()
+        {
+            var transcript = new Transcript
+            {
+                Name = "Li Lei",
+                Chinese = 80,
+                English = 81
+            };
+            var other = new Transcript
+            {
+                Name = "Li Lei",
+                Math = 90
+            };
+            transcript.Merge(other);
+            Assert.AreEqual(80, transcript.Chinese);
+            Assert.AreEqual(81, transcript.English);
+            Assert.AreEqual(90, transcript.Math);
+        }
     }
 }

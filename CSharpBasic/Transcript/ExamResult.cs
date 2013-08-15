@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -54,7 +55,9 @@ namespace CSharpBasic.Transcript
             return result.Results.Select(g =>
                                              {
                                                  var transcript = new Transcript {Name = g.Name};
-                                                 transcript.GetType().GetProperty(result.Course).SetValue(transcript, g.Score, null);
+                                                 transcript.GetType().GetProperties().
+                                                     First(p => p.Name == result.Course).
+                                                     SetValue(transcript, g.Score, null);
                                                  return transcript;
                                              }).ToList();
         }

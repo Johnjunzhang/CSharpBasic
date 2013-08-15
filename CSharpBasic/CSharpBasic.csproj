@@ -47,6 +47,7 @@
     <Compile Include="Transcript\DisplayAttribute.cs" />
     <Compile Include="Transcript\ExamResult.cs" />
     <Compile Include="Transcript\Transcript.cs" />
+    <Compile Include="Transcript\TranscriptDatabase.cs" />
     <Compile Include="Transcript\TranscriptExtension.cs" />
   </ItemGroup>
   <ItemGroup>

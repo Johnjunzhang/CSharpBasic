@@ -11,6 +11,33 @@ namespace CSharpBasic.Transcript
         {
             return PrintObject(transcript);
         }
+
+        public static void Merge(this Transcript me, Transcript other)
+        {
+            if(other.Chinese != null)
+            {
+                me.Chinese = other.Chinese;
+            }
+            if(other.English != null)
+            {
+                me.English = other.English;
+            }
+            if(other.Math != null)
+            {
+                me.Math = other.Math;
+            }
+        }
+
+        public static Transcript Clone(this Transcript t)
+        {
+            return new Transcript
+                       {
+                           Name = t.Name,
+                           Chinese = t.Chinese,
+                           Math = t.Math,
+                           English = t.English
+                       };
+        }
         
         public static string Print(this Grade grade)
         {
