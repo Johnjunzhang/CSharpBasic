@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using NUnit.Framework;
 
@@ -49,9 +49,14 @@ namespace CSharpBasic.Transcript
 
     public static class ExamResultExtension
     {
-        public static List<Transcript> ToTranscripts(this ExamResult result, Func<Grade, Transcript> convert)
+        public static List<Transcript> ToTranscripts(this ExamResult result)
         {
-            return result.Results.Select(convert).ToList();
+            return result.Results.Select(g =>
+                                             {
+                                                 var transcript = new Transcript {Name = g.Name};
+                                                 transcript.GetType().GetProperty(result.Course).SetValue(transcript, g.Score, null);
+                                                 return transcript;
+                                             }).ToList();
         }
     }
 
@@ -95,7 +100,7 @@ namespace CSharpBasic.Transcript
             result.Add(new Grade("Li Lei", 80));
             result.Add(new Grade("Han Meimei", 90));
 
-            var transcripts = result.ToTranscripts(grade => new Transcript{Name = grade.Name, Math = grade.Score});
+            var transcripts = result.ToTranscripts();
             Assert.AreEqual(80, transcripts[0].Math);
             Assert.AreEqual("Li Lei", transcripts[0].Name);
             Assert.AreEqual(90, transcripts[1].Math);
@@ -109,7 +114,7 @@ namespace CSharpBasic.Transcript
             result.Add(new Grade("Li Lei", 80));
             result.Add(new Grade("Han Meimei", 90));
 
-            var transcripts = result.ToTranscripts(grade => new Transcript { Name = grade.Name, English = grade.Score });
+            var transcripts = result.ToTranscripts();
             Assert.AreEqual(80, transcripts[0].English);
             Assert.AreEqual("Li Lei", transcripts[0].Name);
             Assert.AreEqual(90, transcripts[1].English);
